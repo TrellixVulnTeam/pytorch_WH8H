@@ -27,6 +27,8 @@ const char* toString(DispatchKey t) {
       return "MLC";
     case DispatchKey::HPU:
       return "HPU";
+    case DispatchKey::ORT:
+      return "ORT";
     case DispatchKey::Vulkan:
       return "Vulkan";
     case DispatchKey::Metal:
@@ -93,6 +95,8 @@ const char* toString(DispatchKey t) {
       return "AutogradMLC";
     case DispatchKey::AutogradHPU:
       return "AutogradHPU";
+    case DispatchKey::AutogradORT:
+      return "AutogradORT";
     case DispatchKey::AutogradNestedTensor:
       return "AutogradNestedTensor";
     case DispatchKey::AutogradPrivateUse1:
@@ -181,6 +185,8 @@ DispatchKey getAutogradKeyFromBackend(DispatchKey t) {
       return DispatchKey::AutogradMLC;
     case DispatchKey::HPU:
       return DispatchKey::AutogradHPU;
+    case DispatchKey::AutogradORT:
+      return DispatchKey::ORT;
     case DispatchKey::NestedTensor:
       return DispatchKey::AutogradNestedTensor;
     case DispatchKey::PrivateUse1:

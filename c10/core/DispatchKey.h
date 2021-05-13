@@ -68,6 +68,7 @@ enum class DispatchKey : uint8_t {
   XPU, // For out of tree Intel's heterogeneous computing plug-in
   HPU, // For out of tree & closed source integration of HPU / Habana
   VE, // For out of tree & closed source integration of SX-Aurora / NEC
+  ORT, // lives out of tree at https://github.com/pytorch/ort
 
   // A meta tensor is a tensor without any data associated with it.  (They
   // have also colloquially been referred to as tensors on the "null" device).
@@ -216,8 +217,8 @@ enum class DispatchKey : uint8_t {
   // you are responsible for handling autograd yourself, or deferring to other
   // operators which support autograd.
 
-  // Currently we only have backend-specific autograd keys for CPU/CUDA/XLA and
-  // reserved user-defined backends. All other in-tree backends share the
+  // Currently we only have backend-specific autograd keys for CPU/CUDA/XLA/ORT
+  // and reserved user-defined backends. All other in-tree backends share the
   // AutogradOther key. We can add specific autograd key for those backends
   // upon request.
   AutogradOther,
@@ -227,6 +228,7 @@ enum class DispatchKey : uint8_t {
   AutogradXPU,
   AutogradMLC,
   AutogradHPU,
+  AutogradORT,
   AutogradNestedTensor, // lives out of tree at
   // https://github.com/pytorch/nestedtensor
   // Here are some reserved pre-autograd keys for user-defined backends, see

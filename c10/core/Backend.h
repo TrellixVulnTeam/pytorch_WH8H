@@ -51,6 +51,7 @@ enum class Backend {
   MkldnnCPU,
   MLC,
   HPU,
+  ORT,
   NumOptions
 };
 
@@ -101,6 +102,8 @@ static inline Backend dispatchKeyToBackend(DispatchKey t) {
     return Backend::QuantizedXPU;
   } else if (t == DispatchKey::HPU || t == DispatchKey::AutogradHPU) {
     return Backend::HPU;
+  } else if (t == DispatchKey::ORT || t == DispatchKey::AutogradORT) {
+    return Backend::ORT;
   } else if (t == DispatchKey::Undefined) {
     return Backend::Undefined;
   } else {
@@ -156,6 +159,8 @@ static inline DispatchKey backendToDispatchKey(Backend b) {
       return DispatchKey::MLC;
     case Backend::HPU:
       return DispatchKey::HPU;
+    case Backend::ORT:
+      return DispatchKey::ORT;
     default:
       throw std::runtime_error("Unknown backend");
   }
@@ -206,6 +211,8 @@ static inline DeviceType backendToDeviceType(Backend b) {
       return DeviceType::MLC;
     case Backend::HPU:
       return DeviceType::HPU;
+    case Backend::ORT:
+      return DeviceType::ORT;
     case Backend::Undefined:
       TORCH_CHECK(false, "Undefined backend is not a valid device type");
     default:
@@ -262,6 +269,8 @@ static inline const char* toString(Backend b) {
       return "QuantizedXPU";
     case Backend::HPU:
       return "HPU";
+    case Backend::ORT:
+      return "ORT";
     default:
       return "UNKNOWN_BACKEND";
   }

@@ -41,6 +41,8 @@ std::string DeviceTypeName(DeviceType d, bool lower_case) {
       return lower_case ? "meta" : "META";
     case DeviceType::HPU:
       return lower_case ? "hpu" : "HPU";
+    case DeviceType::ORT:
+      return lower_case ? "ort" : "ORT";
     default:
       TORCH_CHECK(
           false,
@@ -81,6 +83,7 @@ bool isValidDeviceType(DeviceType d) {
     case DeviceType::XPU:
     case DeviceType::Meta:
     case DeviceType::HPU:
+    case DeviceType::ORT:
       return true;
     default:
       return false;

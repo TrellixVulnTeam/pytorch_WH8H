@@ -60,7 +60,7 @@ class Tensor(torch._C._TensorBase):
             # does accurate alias tracking; however, the code below
             # doesn't work because of
             # https://github.com/pytorch/pytorch/issues/47442
-            if self.is_sparse or self.device.type in ['xla', 'mlc', 'meta']:
+            if self.is_sparse or self.device.type in ['xla', 'mlc', 'ort', 'meta']:
                 new_tensor = self.clone()
             else:
                 new_storage = self.storage().__deepcopy__(memo)
@@ -134,6 +134,12 @@ class Tensor(torch._C._TensorBase):
                        str(self.device),
                        self.requires_grad)
             return (torch._utils._rebuild_mlc_tensor, arg_mlc)
+        if self.device.type == 'ort':
+            arg_ort = (self.cpu().numpy(),
+                       self.dtype,
+                       str(self.device),
+                       self.requires_grad)
+            return (torch._utils._rebuild_ort_tensor, arg_ort)
         if self.is_quantized:
             # quantizer_params can be different type based on torch attribute
             quantizer_params: Union[Tuple[torch.qscheme, float, int], Tuple[Any, Tensor, Tensor, int]]
