@@ -18,6 +18,6 @@ inline bool THPDevice_Check(PyObject *obj) {
   return Py_TYPE(obj) == &THPDeviceType;
 }
 
-PyObject * THPDevice_New(const at::Device& device);
+TORCH_API PyObject * THPDevice_New(const at::Device& device);
 
-void THPDevice_init(PyObject *module);
+TORCH_API void THPDevice_init(PyObject *module);
